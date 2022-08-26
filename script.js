@@ -59,6 +59,14 @@ function evaluate(id){
         return null;
     }
 
+    if(id == "DEL" && container.textContent.length != 1){
+        container.textContent = container.textContent.slice(0, -1);
+        return null;
+    }
+    if(id == "DEL" && container.textContent.length == 1){
+        container.textContent = 0;
+        return null;
+    }
 
     if(hasOperator){
         container.textContent = null;
