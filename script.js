@@ -30,6 +30,10 @@ function operate(a,b,operator){
         return multiply(a,b);
     }
     if(operator=="/"){
+        if(b == 0){
+            alert("Cannot divide by zero!");
+            return null;
+        }
         return divide(a,b);
     }
     if(operator=="%"){
@@ -43,10 +47,16 @@ const container = document.querySelector("#display");
 
 let operand1 = 0, operand2 = 0, operator = null;
 let hasOperator = false;
+
+const period = document.querySelector("#\\.");
 function evaluate(id){
     if(start){
         container.textContent = null;
         start=false;
+    }
+
+    if(id == "." && container.textContent.includes(".")){
+        return null;
     }
 
 
@@ -62,10 +72,14 @@ function evaluate(id){
         hasOperator = true;
     }
     if(id == "="){
+        if(operator == null){
+            return null;
+        }
         operand2 = container.textContent;
-        operand1 = parseInt(operand1), operand2 = parseInt(operand2);
+        operand1 = parseFloat(operand1), operand2 = parseFloat(operand2);
         let x = operate(operand1, operand2, operator);
         container.textContent = x;
+        operand1 = x;
     }
     else{
         container.textContent += id;
@@ -73,6 +87,13 @@ function evaluate(id){
     if(id == "AC"){
         container.textContent = 0;
         start = true;
+    }
+
+    if(container.textContent.includes(".")){
+        period.style.backgroundColor = "black";
+    }
+    else{
+        period.style.backgroundColor = "#1F6357";
     }
     
 }
